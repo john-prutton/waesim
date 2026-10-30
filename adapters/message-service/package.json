@@ -13,7 +13,8 @@
   },
   "scripts": {
     "build": "tsc && tsc-alias",
-    "dev": "dep-watcher -c 'pnpm build' src node_modules/@repo/*/dist"
+    "dev": "dep-watcher -c 'pnpm build' src node_modules/@repo/*/dist",
+    "clean": "rm -rf ./dist/*"
   },
   "dependencies": {
     "@hapi/boom": "^10.0.1",

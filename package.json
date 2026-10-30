@@ -3,6 +3,8 @@
   "type": "module",
   "scripts": {
     "dev": "turbo run dev",
+    "build": "turbo run build",
+    "clean": "turbo run clean",
     "prepare": "effect-tsgo patch --typescript --oxlint"
   },
   "dependencies": {

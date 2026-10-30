@@ -14,7 +14,8 @@
   "scripts": {
     "build": "tsc && tsc-alias",
     "start": "node dist/index.js",
-    "dev": "dep-watcher -c 'pnpm build' -c 'pnpm start' src node_modules/@repo/*/dist"
+    "dev": "dep-watcher -c 'pnpm build' -c 'pnpm start' src node_modules/@repo/*/dist",
+    "clean": "rm -rf ./dist/*"
   },
   "dependencies": {
     "@hapi/boom": "^10.0.1",

@@ -13,7 +13,8 @@
   },
   "scripts": {
     "build": "tsc && tsc-alias",
-    "dev": "dep-watcher -c 'pnpm build' src"
+    "dev": "dep-watcher -c 'pnpm build' src",
+    "clean": "rm -rf ./dist/*"
   },
   "dependencies": {
     "effect": "catalog:"
