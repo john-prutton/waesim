@@ -1,0 +1,24 @@
+{
+  "name": "@repo/domain",
+  "type": "module",
+  "exports": {
+    "./*.js": {
+      "import": "./dist/*.js",
+      "types": "./dist/*.d.ts"
+    },
+    "./*": {
+      "import": "./dist/*/index.js",
+      "types": "./dist/*/index.d.ts"
+    }
+  },
+  "scripts": {
+    "build": "tsc && tsc-alias",
+    "dev": "dep-watcher -c 'pnpm build' src"
+  },
+  "dependencies": {
+    "effect": "catalog:"
+  },
+  "devDependencies": {
+    "tsc-alias": "^1.9.8"
+  }
+}

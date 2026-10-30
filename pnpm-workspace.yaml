@@ -1,0 +1,12 @@
+packages:
+ - application
+ - domain
+ - adapters/*
+ - apps/*
+
+allowBuilds:
+  '@whiskeysockets/baileys': true
+  protobufjs: true
+
+catalog:
+  effect: ^4
