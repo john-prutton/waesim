@@ -1,5 +1,5 @@
 {
-  "name": "@repo/backend",
+  "name": "@repo/server",
   "type": "module",
   "exports": {
     "./*.js": {
@@ -18,14 +18,11 @@
     "clean": "rm -rf ./dist/*"
   },
   "dependencies": {
-    "@hapi/boom": "^10.0.1",
     "@repo/application": "workspace:^",
     "@repo/domain": "workspace:^",
+    "@repo/fake-message-service": "workspace:^",
     "@repo/message-service": "workspace:^",
-    "@types/qrcode-terminal": "^0.12.2",
-    "@whiskeysockets/baileys": "7.0.0-rc14",
-    "effect": "catalog:",
-    "qrcode-terminal": "^0.12.0"
+    "effect": "catalog:"
   },
   "devDependencies": {
     "tsc-alias": "^1.9.8"

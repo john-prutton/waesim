@@ -1,11 +1,11 @@
 packages:
- - application
- - domain
- - adapters/*
- - apps/*
+  - application
+  - domain
+  - adapters/*
+  - apps/*
 
 allowBuilds:
-  '@whiskeysockets/baileys': true
+  "@whiskeysockets/baileys": true
   protobufjs: true
 
 catalog:

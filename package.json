@@ -5,6 +5,7 @@
     "dev": "turbo run dev",
     "build": "turbo run build",
     "clean": "turbo run clean",
+    "lint": "oxlint",
     "prepare": "effect-tsgo patch --typescript --oxlint"
   },
   "dependencies": {

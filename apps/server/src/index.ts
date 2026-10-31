@@ -5,7 +5,7 @@ import { ChatId } from "@repo/domain/index.js"
 
 import { MessageService } from "@repo/application/index.js"
 
-import { WhatsAppMessageService } from "@repo/message-service/index.js"
+import { FakeMessageService } from "@repo/fake-message-service/index.js"
 
 Effect.gen(function* () {
   const { subscribeToChat } = yield* MessageService
@@ -21,4 +21,4 @@ Effect.gen(function* () {
   )
 
   yield* Effect.sleep("Infinity")
-}).pipe(Effect.provide(WhatsAppMessageService), Effect.runPromise)
+}).pipe(Effect.provide(FakeMessageService), Effect.runPromise)
