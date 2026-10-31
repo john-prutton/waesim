@@ -201,6 +201,22 @@ importers:
         specifier: ^7.0.2
         version: 7.0.2
 
+  adapters/fake-message-service:
+    dependencies:
+      '@repo/application':
+        specifier: workspace:^
+        version: link:../../application
+      '@repo/domain':
+        specifier: workspace:^
+        version: link:../../domain
+      effect:
+        specifier: 'catalog:'
+        version: 4.0.5
+    devDependencies:
+      tsc-alias:
+        specifier: ^1.9.8
+        version: 1.9.8
+
   adapters/message-service:
     dependencies:
       '@hapi/boom':
@@ -242,7 +258,7 @@ importers:
         specifier: ^1.9.8
         version: 1.9.8
 
-  apps/backend:
+  apps/server:
     dependencies:
       '@hapi/boom':
         specifier: ^10.0.1
@@ -253,6 +269,9 @@ importers:
       '@repo/domain':
         specifier: workspace:^
         version: link:../../domain
+      '@repo/fake-message-service':
+        specifier: workspace:^
+        version: link:../../adapters/fake-message-service
       '@repo/message-service':
         specifier: workspace:^
         version: link:../../adapters/message-service

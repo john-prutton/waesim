@@ -1,0 +1,27 @@
+{
+  "name": "@repo/fake-message-service",
+  "type": "module",
+  "exports": {
+    "./*.js": {
+      "import": "./dist/*.js",
+      "types": "./dist/*.d.ts"
+    },
+    "./*": {
+      "import": "./dist/*/index.js",
+      "types": "./dist/*/index.d.ts"
+    }
+  },
+  "scripts": {
+    "build": "tsc && tsc-alias",
+    "dev": "dep-watcher -c 'pnpm build' src node_modules/@repo/*/dist",
+    "clean": "rm -rf ./dist/*"
+  },
+  "dependencies": {
+    "@repo/application": "workspace:^",
+    "@repo/domain": "workspace:^",
+    "effect": "catalog:"
+  },
+  "devDependencies": {
+    "tsc-alias": "^1.9.8"
+  }
+}
