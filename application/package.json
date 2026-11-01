@@ -1,5 +1,5 @@
 {
-  "name": "@repo/application",
+  "name": "@waesim/application",
   "type": "module",
   "exports": {
     "./*.js": {
@@ -13,11 +13,11 @@
   },
   "scripts": {
     "build": "tsc && tsc-alias",
-    "dev": "dep-watcher -c 'pnpm build' src node_modules/@repo/*/dist",
+    "dev": "dep-watcher -c 'pnpm build' src node_modules/@waesim/*/dist",
     "clean": "rm -rf ./dist/*"
   },
   "dependencies": {
-    "@repo/domain": "workspace:^",
+    "@waesim/domain": "workspace:^",
     "effect": "catalog:"
   },
   "devDependencies": {

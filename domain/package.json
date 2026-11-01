@@ -1,5 +1,5 @@
 {
-  "name": "@repo/domain",
+  "name": "@waesim/domain",
   "type": "module",
   "exports": {
     "./*.js": {

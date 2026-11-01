@@ -1,5 +1,5 @@
 {
-  "name": "@repo/fake-message-service",
+  "name": "@waesim/fake-message-service",
   "type": "module",
   "exports": {
     "./*.js": {
@@ -13,12 +13,12 @@
   },
   "scripts": {
     "build": "tsc && tsc-alias",
-    "dev": "dep-watcher -c 'pnpm build' src node_modules/@repo/*/dist",
+    "dev": "dep-watcher -c 'pnpm build' src node_modules/@waesim/*/dist",
     "clean": "rm -rf ./dist/*"
   },
   "dependencies": {
-    "@repo/application": "workspace:^",
-    "@repo/domain": "workspace:^",
+    "@waesim/application": "workspace:^",
+    "@waesim/domain": "workspace:^",
     "effect": "catalog:"
   },
   "devDependencies": {

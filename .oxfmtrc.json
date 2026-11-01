@@ -11,9 +11,9 @@
       },
       { "groupName": "effect", "elementNamePattern": ["effect", "effect/**"] },
       { "groupName": "effect-scoped", "elementNamePattern": ["@effect/**"] },
-      { "groupName": "repo-domain", "elementNamePattern": ["@repo/domain/**"] },
-      { "groupName": "repo-application", "elementNamePattern": ["@repo/application/**"] },
-      { "groupName": "repo", "elementNamePattern": ["@repo/**"] },
+      { "groupName": "repo-domain", "elementNamePattern": ["@waesim/domain/**"] },
+      { "groupName": "repo-application", "elementNamePattern": ["@waesim/application/**"] },
+      { "groupName": "repo", "elementNamePattern": ["@waesim/**"] },
       { "groupName": "alias", "elementNamePattern": ["@/**"] }
     ],
     "groups": [

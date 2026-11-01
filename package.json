@@ -8,9 +8,7 @@
     "lint": "oxlint",
     "prepare": "effect-tsgo patch --typescript --oxlint"
   },
-  "dependencies": {
-    "effect": "^4.0.5"
-  },
+  "dependencies": {},
   "devDependencies": {
     "@effect/tsgo": "0.55.0",
     "@john-prutton/dep-watcher": "^0.1.2",

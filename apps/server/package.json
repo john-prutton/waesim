@@ -1,5 +1,5 @@
 {
-  "name": "@repo/server",
+  "name": "@waesim/server",
   "type": "module",
   "exports": {
     "./*.js": {
@@ -14,14 +14,15 @@
   "scripts": {
     "build": "tsc && tsc-alias",
     "start": "node dist/index.js",
-    "dev": "dep-watcher -c 'pnpm build' -c 'pnpm start' src node_modules/@repo/*/dist",
+    "dev": "dep-watcher -c 'pnpm build' -c 'pnpm start' src node_modules/@waesim/*/dist",
     "clean": "rm -rf ./dist/*"
   },
   "dependencies": {
-    "@repo/application": "workspace:^",
-    "@repo/domain": "workspace:^",
-    "@repo/fake-message-service": "workspace:^",
-    "@repo/message-service": "workspace:^",
+    "@effect/platform-node": "catalog:",
+    "@waesim/application": "workspace:^",
+    "@waesim/domain": "workspace:^",
+    "@waesim/fake-message-service": "workspace:^",
+    "@waesim/message-service": "workspace:^",
     "effect": "catalog:"
   },
   "devDependencies": {

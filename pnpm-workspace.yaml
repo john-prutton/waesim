@@ -9,4 +9,5 @@ allowBuilds:
   protobufjs: true
 
 catalog:
-  effect: ^4
+  effect: ^4.1.0
+  "@effect/platform-node": ^4.1.0

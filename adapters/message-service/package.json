@@ -1,5 +1,5 @@
 {
-  "name": "@repo/message-service",
+  "name": "@waesim/message-service",
   "type": "module",
   "exports": {
     "./*.js": {
@@ -13,14 +13,14 @@
   },
   "scripts": {
     "build": "tsc && tsc-alias",
-    "dev": "dep-watcher -c 'pnpm build' src node_modules/@repo/*/dist",
+    "dev": "dep-watcher -c 'pnpm build' src node_modules/@waesim/*/dist",
     "clean": "rm -rf ./dist/*"
   },
   "dependencies": {
     "@hapi/boom": "^10.0.1",
-    "@repo/application": "workspace:^",
-    "@repo/domain": "workspace:^",
     "@types/qrcode-terminal": "^0.12.2",
+    "@waesim/application": "workspace:^",
+    "@waesim/domain": "workspace:^",
     "@whiskeysockets/baileys": "7.0.0-rc14",
     "effect": "catalog:",
     "qrcode-terminal": "^0.12.0"

@@ -4,11 +4,12 @@ import * as Queue from "effect/Queue"
 import * as Schedule from "effect/Schedule"
 import * as Stream from "effect/Stream"
 
-import { ChatId, InboundMessage, MessageId, UserId } from "@repo/domain/index.js"
+import { ChatId, InboundMessage, MessageId, UserId } from "@waesim/domain/index.js"
 
-import { MessageService } from "@repo/application/index.js"
+import { MessageService } from "@waesim/application/index.js"
 
 import makeWASocket, { useMultiFileAuthState } from "@whiskeysockets/baileys"
+import qrcode from "qrcode-terminal"
 
 import { ConnectionClosed } from "./errors.js"
 import { ConnectionUpdate, CredsUpdate, Events } from "./schema.js"
@@ -30,7 +31,8 @@ export const WhatsAppMessageService = Layer.effect(
 
           sock.ev.on("creds.update", () => Queue.offerUnsafe(queue, new CredsUpdate()))
 
-          sock.ev.on("connection.update", ({ connection }) => {
+          sock.ev.on("connection.update", ({ connection, qr }) => {
+            if (qr) qrcode.generate(qr)
             Queue.offerUnsafe(queue, new ConnectionUpdate({ connection }))
           })
 

@@ -24,6 +24,7 @@
         "name": "@effect/language-service",
         "namespaceImportPackages": ["effect", "@effect/platform-node"],
         "diagnosticSeverity": {
+          "unstableApiUsage": "off",
           "preferNamespaceImport": "warning"
         }
       }

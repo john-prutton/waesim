@@ -1,6 +1,6 @@
 import * as Schema from "effect/Schema"
 
-import { InboundMessage } from "@repo/domain/index.js"
+import { InboundMessage } from "@waesim/domain/index.js"
 
 export class CredsUpdate extends Schema.TaggedClass<
   CredsUpdate,

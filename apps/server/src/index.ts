@@ -1,24 +1,49 @@
 import * as Effect from "effect/Effect"
-import * as Stream from "effect/Stream"
+import * as HttpRouter from "effect/http/HttpRouter"
+import * as HttpServerResponse from "effect/http/HttpServerResponse"
+import * as Layer from "effect/Layer"
+import * as RpcSerialization from "effect/rpc/RpcSerialization"
+import * as RpcServer from "effect/rpc/RpcServer"
 
-import { ChatId } from "@repo/domain/index.js"
+import * as NodeHttpServer from "@effect/platform-node/NodeHttpServer"
 
-import { MessageService } from "@repo/application/index.js"
+import { MessageService } from "@waesim/application/index.js"
+import { MessageRpcGroup } from "@waesim/application/rpc-contract.js"
 
-import { FakeMessageService } from "@repo/fake-message-service/index.js"
+import { FakeMessageService } from "@waesim/fake-message-service/index.js"
+import { WhatsAppMessageService } from "@waesim/message-service/index.js"
 
-Effect.gen(function* () {
-  const { subscribeToChat } = yield* MessageService
+import { createServer } from "node:http"
 
-  yield* subscribeToChat(ChatId.make("13159930806317@lid")).pipe(
-    Stream.runForEach((message) => Effect.log("DM:", message)),
-    Effect.forkChild,
-  )
+const ApiRoutes = HttpRouter.use((router) =>
+  router.add("GET", "/health", ({}) => HttpServerResponse.json({ ok: true })),
+)
 
-  yield* subscribeToChat(ChatId.make("Test group")).pipe(
-    Stream.runForEach((message) => Effect.log("Test group:", message)),
-    Effect.forkChild,
-  )
+const RpcRoutes = RpcServer.layerHttp({
+  group: MessageRpcGroup,
+  path: "/rpc",
+  protocol: "websocket",
+})
 
-  yield* Effect.sleep("Infinity")
-}).pipe(Effect.provide(FakeMessageService), Effect.runPromise)
+const RpcRoutesLive = MessageRpcGroup.toLayer(
+  Effect.gen(function* () {
+    const messageService = yield* MessageService
+
+    return {
+      SubscribeToChat: ({ chatId }) => messageService.subscribeToChat(chatId),
+      sendMessage: () => Effect.void,
+    }
+  }),
+)
+
+const AllRoutes = Layer.mergeAll(ApiRoutes, RpcRoutes)
+
+HttpRouter.serve(AllRoutes).pipe(
+  Layer.provide(NodeHttpServer.layer(createServer, { port: 3000 })),
+  Layer.provide(RpcSerialization.layerJson),
+  Layer.provide(RpcRoutesLive),
+  Layer.provide(FakeMessageService),
+  // Layer.provide(WhatsAppMessageService),
+  Layer.launch,
+  Effect.runPromise,
+)
