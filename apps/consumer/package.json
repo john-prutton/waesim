@@ -1,0 +1,38 @@
+{
+  "name": "@waesim/consumer",
+  "version": "0.0.1-alpha",
+  "files": [
+    "dist"
+  ],
+  "type": "module",
+  "exports": {
+    "./*.js": {
+      "import": "./dist/*.js",
+      "types": "./dist/*.d.ts"
+    },
+    "./*": {
+      "import": "./dist/*/index.js",
+      "types": "./dist/*/index.d.ts"
+    }
+  },
+  "scripts": {
+    "build": "tsc --noEmit && tsdown",
+    "start": "node dist/index.js",
+    "dev": "dep-watcher -c 'pnpm build' src node_modules/@waesim/*/dist",
+    "clean": "rm -rf ./dist/*",
+    "prepublishOnly": "pnpm clean && pnpm build"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "@effect/platform-node": "catalog:",
+    "@waesim/application": "workspace:^",
+    "@waesim/domain": "workspace:^",
+    "effect": "catalog:",
+    "tsc-alias": "^1.9.8",
+    "tsdown": "^0.23.4"
+  },
+  "peerDependencies": {
+    "@effect/platform-node": "catalog:",
+    "effect": "catalog:"
+  }
+}
