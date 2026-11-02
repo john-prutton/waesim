@@ -4,6 +4,7 @@ import * as HttpServerResponse from "effect/http/HttpServerResponse"
 import * as Layer from "effect/Layer"
 import * as RpcSerialization from "effect/rpc/RpcSerialization"
 import * as RpcServer from "effect/rpc/RpcServer"
+import * as Stream from "effect/Stream"
 
 import * as NodeHttpServer from "@effect/platform-node/NodeHttpServer"
 
@@ -30,8 +31,8 @@ const RpcRoutesLive = MessageRpcGroup.toLayer(
     const messageService = yield* MessageService
 
     return {
-      SubscribeToChat: ({ chatId }) => messageService.subscribeToChat(chatId),
-      sendMessage: () => Effect.void,
+      subscribeToTopic: ({ topic }) => messageService.subscribeToTopic(topic).pipe(Stream.unwrap),
+      sendMessage: ({ outboundMessage }) => messageService.sendMessage(outboundMessage),
     }
   }),
 )
@@ -42,8 +43,8 @@ HttpRouter.serve(AllRoutes).pipe(
   Layer.provide(NodeHttpServer.layer(createServer, { port: 3000 })),
   Layer.provide(RpcSerialization.layerJson),
   Layer.provide(RpcRoutesLive),
-  Layer.provide(FakeMessageService),
-  // Layer.provide(WhatsAppMessageService),
+  // Layer.provide(FakeMessageService),
+  Layer.provide(WhatsAppMessageService),
   Layer.launch,
   Effect.runPromise,
 )

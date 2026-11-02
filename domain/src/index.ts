@@ -1,18 +1,19 @@
 import * as Schema from "effect/Schema"
 
-export const MessageId = Schema.String.pipe(Schema.brand("message-id"))
+export const MessageId = Schema.String.pipe(Schema.brand("MessageId"))
 export type MessageId = typeof MessageId.Type
 
-export const ChatId = Schema.String.pipe(Schema.brand("chat-id"))
+export const Topic = Schema.String.pipe(Schema.brand("Topic"))
+export type Topic = typeof Topic.Type
+
+export const ChatId = Schema.String.pipe(Schema.brand("ChatId"))
 export type ChatId = typeof ChatId.Type
 
-export const UserId = Schema.String.pipe(Schema.brand("user-id"))
+export const UserId = Schema.String.pipe(Schema.brand("UserId"))
 export type UserId = typeof UserId.Type
 
-export const MessageContent = Schema.Union([
-  Schema.TaggedStruct("Text", { body: Schema.String }),
-  Schema.TaggedStruct("Unsupported", { waType: Schema.String }),
-])
+export type MessageContent = typeof MessageContent.Type
+export const MessageContent = Schema.Union([Schema.TaggedStruct("Text", { body: Schema.String })])
 
 export class InboundMessage extends Schema.TaggedClass<
   InboundMessage,
@@ -31,5 +32,18 @@ export class OutboundMessage extends Schema.Class<
 >("OutboundMessage")({
   chatId: ChatId,
   recipientId: UserId,
-  content: Schema.String,
+  content: MessageContent,
 }) {}
+
+export const makeMessageReply = ({
+  content,
+  inboundMessage,
+}: {
+  inboundMessage: InboundMessage
+  content: MessageContent
+}) =>
+  new OutboundMessage({
+    chatId: inboundMessage.chatId,
+    recipientId: inboundMessage.senderId,
+    content,
+  })

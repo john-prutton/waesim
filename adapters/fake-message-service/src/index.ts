@@ -4,7 +4,7 @@ import * as Queue from "effect/Queue"
 import * as Schedule from "effect/Schedule"
 import * as Stream from "effect/Stream"
 
-import { ChatId, InboundMessage, MessageId, UserId } from "@waesim/domain/index.js"
+import { Topic, InboundMessage, MessageId, UserId, ChatId } from "@waesim/domain/index.js"
 
 import { MessageService } from "@waesim/application/index.js"
 
@@ -13,22 +13,22 @@ export const FakeMessageService = Layer.effect(
   Effect.gen(function* () {
     const messageQueue = yield* Queue.unbounded<InboundMessage>()
 
-    const listeners: Set<ChatId> = new Set()
+    const listeners: Set<Topic> = new Set()
 
     let messageId = 0
 
-    const _ = yield* Effect.gen(function* () {
-      for (const chatId of listeners) {
+    yield* Effect.gen(function* () {
+      for (const topic of listeners) {
         yield* Queue.offer(
           messageQueue,
           new InboundMessage({
-            id: MessageId.make(`${messageId++}:${chatId}`),
-            chatId,
+            id: MessageId.make(`${messageId++}:${topic}`),
+            chatId: ChatId.make(topic),
             senderId: UserId.make("user-1"),
             sentAt: new Date(),
             content: {
               _tag: "Text",
-              body: `message ${messageId} for ${chatId}`,
+              body: `message ${messageId} for ${topic}`,
             },
           }),
         )
@@ -39,11 +39,11 @@ export const FakeMessageService = Layer.effect(
     )
 
     return {
-      subscribeToChat: (chatId) => {
-        listeners.add(chatId)
-        return Stream.fromQueue(messageQueue)
+      subscribeToTopic: (topic) => {
+        listeners.add(topic)
+        return Effect.succeed(Stream.fromQueue(messageQueue))
       },
-      sendMessage: (message) => Effect.void,
+      sendMessage: (message) => Effect.log("sending message", message),
     }
   }),
 )
